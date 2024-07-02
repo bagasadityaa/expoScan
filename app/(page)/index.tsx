@@ -1,27 +1,10 @@
-import React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import Card from "../../components/Card";
-export default function ResponsiveLayout() {
+import { StyleSheet, Text, View } from "react-native";
+
+export default function app() {
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
-        <Text>{Platform.OS === "web" ? "Web Box 1" : "Mobile Box 1"}</Text>
-      </View>
-      <View style={styles.box}>
-        <Text>{Platform.OS === "web" ? "Web Box 2" : "Mobile Box 2"}</Text>
-      </View>
-      <View style={styles.box}>
-        <Text>
-          {Platform.OS === "web" ? (
-            <View>
-              <Text>INi Web 3</Text>
-            </View>
-          ) : (
-            <View>
-              <Text>INi Mobile Box 3</Text>
-            </View>
-          )}
-        </Text>
+      <View style={styles.containerHai}>
+        <Text>Haii ini app</Text>
       </View>
     </View>
   );
@@ -29,20 +12,13 @@ export default function ResponsiveLayout() {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
     width: "100%",
     height: "100%",
-    marginTop: Platform.OS === "web" ? 0 : 35,
   },
-  box: {
-    width: Platform.OS === "web" ? "30%" : "45%",
-    height: Platform.OS === "web" ? 100 : 50,
-    backgroundColor: Platform.OS === "web" ? "lightgray" : "green",
-    margin: 5,
+  containerHai: {
+    marginTop: "9%",
+    display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
   },
 });
