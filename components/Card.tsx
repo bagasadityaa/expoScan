@@ -13,6 +13,20 @@ export default function Card() {
         </View>
         <Text>Rp 15000</Text>
       </View>
+      <View style={styles.containerTextDescription}>
+        <View style={styles.containerQuantityTitle}>
+          <Text style={styles.textQuantity}>x2</Text>
+          <Text style={styles.textTitle}>Ayam Bakar</Text>
+        </View>
+        <Text>Rp 15000</Text>
+      </View>
+      <View style={styles.containerTextDescription}>
+        <View style={styles.containerQuantityTitle}>
+          <Text style={styles.textQuantity}>x2</Text>
+          <Text style={styles.textTitle}>Ayam Bakar</Text>
+        </View>
+        <Text>Rp 15000</Text>
+      </View>
       <View>{/* <Button>Haiii</Button> */}</View>
     </View>
   );

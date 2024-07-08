@@ -21,7 +21,7 @@ export default function App({}) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Code anda adalah ${data}`);
-    navigation.navigate("settings");
+    navigation.navigate("order");
   };
 
   if (hasPermission === null) {
