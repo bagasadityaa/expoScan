@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 export default function Card() {
   return (
     <View style={styles.containerCardHeader}>
-      <View style={styles.containerTextTitle}>
+      <View>
         <Text style={styles.textCardHeader}>#808</Text>
       </View>
       <View style={styles.containerTextDescription}>
