@@ -2,10 +2,14 @@ import Card from "@/components/Card";
 import * as React from "react";
 import { Text, View, useWindowDimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
+import { useSession } from "../auth/ctx";
 
 const FirstRoute = () => {
+  const { signOut } = useSession();
+
   return (
     <View style={{ flex: 1 }}>
+      <Text onPress={signOut}>Sign out</Text>
       <Card />
     </View>
   );
