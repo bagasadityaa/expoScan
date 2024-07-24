@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Text, Button } from "react-native";
 import { useSession } from "./auth/ctx";
+import { useNavigation, useRouter } from "expo-router";
 
 export default function App() {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [sign, setSign] = useState();
   const { signIn } = useSession();
+  const router = useRouter();
   const handleLogin = () => {
     // Tambahkan logika login di sini
+    signIn();
+    router.replace("/");
     console.log("Email:", email);
     console.log("Password:", password);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Email:</Text>
+      <Text style={styles.label}>Email</Text>
       <TextInput
         style={[
           styles.input,
@@ -59,7 +64,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    marginBottom: 10,
   },
   input: {
     height: 40,
