@@ -1,12 +1,11 @@
 import Card from "@/components/Card";
+import CardFood from "@/components/CardFood";
 import { View, Text, StyleSheet } from "react-native";
 
 export default function Tab() {
   return (
     <View style={styles.container}>
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <CardFood kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
     </View>
   );
 }
