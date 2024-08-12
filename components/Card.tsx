@@ -1,32 +1,19 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 
-export default function Card() {
+export default function Card({ kode, nama, harga, quantity }) {
   return (
     <View style={styles.containerCardHeader}>
       <View>
-        <Text style={styles.textCardHeader}>#808</Text>
+        <Text style={styles.textCardHeader}>{kode}</Text>
       </View>
       <View style={styles.containerTextDescription}>
         <View style={styles.containerQuantityTitle}>
-          <Text style={styles.textQuantity}>x2</Text>
-          <Text style={styles.textTitle}>Ayam Bakar</Text>
+          <Text style={styles.textQuantity}>{quantity}</Text>
+          <Text style={styles.textTitle}>{nama}</Text>
         </View>
-        <Text>Rp 15000</Text>
+        <Text>{harga}</Text>
       </View>
-      <View style={styles.containerTextDescription}>
-        <View style={styles.containerQuantityTitle}>
-          <Text style={styles.textQuantity}>x2</Text>
-          <Text style={styles.textTitle}>Ayam Bakar</Text>
-        </View>
-        <Text>Rp 15000</Text>
-      </View>
-      <View style={styles.containerTextDescription}>
-        <View style={styles.containerQuantityTitle}>
-          <Text style={styles.textQuantity}>x2</Text>
-          <Text style={styles.textTitle}>Ayam Bakar</Text>
-        </View>
-        <Text>Rp 15000</Text>
-      </View>
+
       <View>{/* <Button>Haiii</Button> */}</View>
     </View>
   );

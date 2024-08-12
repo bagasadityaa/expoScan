@@ -8,14 +8,20 @@ const FirstRoute = () => {
   const { signOut } = useSession();
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Text onPress={signOut}>Sign Out</Text>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      {/* <Text onPress={signOut}>Sign Out</Text> */}
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
     </ScrollView>
   );
 };
@@ -23,14 +29,20 @@ const SecondRoute = () => {
   const { signOut } = useSession();
   return (
     <ScrollView style={{ flex: 1 }}>
-      <Text onPress={signOut}>Sign Out</Text>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      {/* <Text onPress={signOut}>Sign Out</Text> */}
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
     </ScrollView>
   );
 };
