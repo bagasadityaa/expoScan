@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     opacity: 50,
   },
   containerMargin: { marginHorizontal: 5, marginTop: 2 },
-  containerCardHeader: { backgroundColor: "green", padding: 10, width: "100%" },
+  containerCardHeader: { padding: 10, width: "100%" },
   textCardHeader: {
     fontSize: 20,
     fontWeight: "bold",
