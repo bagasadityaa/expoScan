@@ -11,16 +11,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-export default function Settings({ navigation }) {
+export default function Settings({ navigation, route }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   console.log("dataaa", data);
+
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${API_HOST.url}categoryfood`);
         setData(response.data.meta.message);
-        console.log("success food", response);
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
@@ -39,6 +39,7 @@ export default function Settings({ navigation }) {
           data.map((item, index) => (
             <CardFood
               key={index}
+              id={item.id}
               switchValue="kategori"
               nama={item.nama_kategori}
             />

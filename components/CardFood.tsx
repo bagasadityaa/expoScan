@@ -10,6 +10,7 @@ export default function CardFood({
   quantity,
   switchValue,
   navigate,
+  id,
 }) {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -21,7 +22,7 @@ export default function CardFood({
       {switchValue === "kategori" ? (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Ketersediaan");
+            navigation.navigate("Ketersediaan", { id: id });
           }}
         >
           <View
