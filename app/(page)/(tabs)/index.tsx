@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import * as React from "react";
+import { API_HOST } from "@/config/Api";
 import {
   ActivityIndicator,
   ScrollView,
@@ -24,7 +25,7 @@ const FirstRoute = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://foodmarket.test/api/food");
+        const response = await axios.get(`${API_HOST.url}food`);
         setData(response.data.data.data);
         console.log("success food", response);
       } catch (error) {
@@ -34,14 +35,19 @@ const FirstRoute = () => {
       }
     };
     fetchData();
-  });
+  }, []);
   return (
     <ScrollView style={{ flex: 1 }}>
       {/* <Text onPress={signOut}>Sign Out</Text> */}
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+        <Card
+          kode="#400"
+          nama={data[0].nama_food}
+          quantity="x2"
+          harga="Rp 15000"
+        />
       )}
 
       <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
