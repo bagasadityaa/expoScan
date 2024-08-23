@@ -25,7 +25,7 @@ const FirstRoute = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_HOST.url}food`);
+        const response = await axios.get(`${API_HOST.url}dashboard/order`);
         setData(response.data.data.data);
         console.log("success food", response);
       } catch (error) {
@@ -42,26 +42,21 @@ const FirstRoute = () => {
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <Card
-          kode="#400"
-          nama={data[0].nama_food}
-          quantity="x2"
-          harga="Rp 15000"
-        />
+        data.map((item, index) => (
+          <Card
+            key={index}
+            // onPress={async () => {
+            //   console.log("Navigating to Ketersediaan with ID:", item.id); // Debug log
+            //   await saveCategoryId(item.id);
+            //   navigation.navigate("Ketersediaan");
+            // }}
+            // switchValue="kategori"
+            harga={item.total_harga}
+            kode={item.code}
+            nama={item.name}
+          />
+        ))
       )}
-
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
     </ScrollView>
   );
 };

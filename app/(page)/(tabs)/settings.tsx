@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import CardFood from "@/components/CardFood";
 import { API_HOST } from "@/config/Api";
 import axios from "axios";
+import { useNavigation } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -10,12 +11,21 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Settings({ navigation, route }) {
+export default function Settings({}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   console.log("dataaa", data);
-
+  const navigation = useNavigation();
+  const saveCategoryId = async (id) => {
+    try {
+      await AsyncStorage.setItem("categoryId", id.toString());
+      console.log("Saved categoryId:", id);
+    } catch (e) {
+      console.error("Failed to save categoryId:", e);
+    }
+  };
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,7 +49,11 @@ export default function Settings({ navigation, route }) {
           data.map((item, index) => (
             <CardFood
               key={index}
-              id={item.id}
+              onPress={async () => {
+                console.log("Navigating to Ketersediaan with ID:", item.id); // Debug log
+                await saveCategoryId(item.id);
+                navigation.navigate("Ketersediaan");
+              }}
               switchValue="kategori"
               nama={item.nama_kategori}
             />

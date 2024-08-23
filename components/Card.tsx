@@ -1,4 +1,5 @@
 import { Button, StyleSheet, Text, View } from "react-native";
+import Number from "./Number";
 
 export default function Card({ kode, nama, harga, quantity }) {
   return (
@@ -11,7 +12,7 @@ export default function Card({ kode, nama, harga, quantity }) {
           <Text style={styles.textQuantity}>{quantity}</Text>
           <Text style={styles.textTitle}>{nama}</Text>
         </View>
-        <Text>{harga}</Text>
+        <Number number={harga} />
       </View>
 
       <View>{/* <Button>Haiii</Button> */}</View>

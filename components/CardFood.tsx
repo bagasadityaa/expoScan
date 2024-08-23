@@ -11,6 +11,7 @@ export default function CardFood({
   switchValue,
   navigate,
   id,
+  onPress,
 }) {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -20,11 +21,7 @@ export default function CardFood({
   return (
     <View style={{ paddingHorizontal: 5, width: "100%" }}>
       {switchValue === "kategori" ? (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Ketersediaan", { id: id });
-          }}
-        >
+        <TouchableOpacity onPress={onPress}>
           <View
             style={{
               padding: 5,
