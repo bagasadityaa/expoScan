@@ -33,17 +33,8 @@ export default function CardFood({
             }}
           >
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>{nama}</Text>
-            {switchValue === "kategori" ? (
-              <TouchableOpacity>
-                <FontAwesome size={28} name="angle-right" />
-              </TouchableOpacity>
-            ) : (
-              <Switch
-                trackColor={{ false: "#767577", true: "green" }}
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-              />
-            )}
+
+            <FontAwesome size={28} name="angle-right" color={color} />
           </View>
         </TouchableOpacity>
       ) : (
@@ -58,20 +49,14 @@ export default function CardFood({
           }}
         >
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>{nama}</Text>
-          {switchValue === "kategori" ? (
-            <TouchableOpacity>
-              <FontAwesome size={28} name="angle-right" />
-            </TouchableOpacity>
-          ) : (
-            <Switch
-              trackColor={{ false: "#767577", true: "green" }}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-          )}
+
+          <Switch
+            trackColor={{ false: "#767577", true: "green" }}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
         </View>
       )}
-      <View>{/* <Button>Haiii</Button> */}</View>
     </View>
   );
 }

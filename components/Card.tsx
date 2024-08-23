@@ -1,9 +1,14 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Number from "./Number";
+import { useNavigation } from "expo-router";
 
 export default function Card({ kode, nama, harga, quantity }) {
+  const navigation = useNavigation();
   return (
-    <View style={styles.containerCardHeader}>
+    <TouchableOpacity
+      style={styles.containerCardHeader}
+      onPress={() => navigation.navigate("OrderDetail")}
+    >
       <View>
         <Text style={styles.textCardHeader}>{kode}</Text>
       </View>
@@ -16,7 +21,7 @@ export default function Card({ kode, nama, harga, quantity }) {
       </View>
 
       <View>{/* <Button>Haiii</Button> */}</View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

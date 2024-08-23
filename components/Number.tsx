@@ -8,7 +8,7 @@ const Number = ({ number, type, style }) => {
         value={number}
         displayType="text"
         renderText={(value) => (
-          <Text style={{ fontWeight: "black" }}>{value}</Text>
+          <Text style={{ fontSize: 40, fontWeight: "black" }}>{value}</Text>
         )}
         decimalSeparator=","
         decimalScale={1}
@@ -23,7 +23,7 @@ const Number = ({ number, type, style }) => {
       displayType="text"
       prefix="Rp "
       renderText={(value) => (
-        <Text style={{ fontWeight: "bold" }}>{value}</Text>
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>{value}</Text>
       )}
       decimalSeparator=","
     />

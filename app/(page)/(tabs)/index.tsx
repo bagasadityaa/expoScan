@@ -43,18 +43,14 @@ const FirstRoute = () => {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         data.map((item, index) => (
-          <Card
-            key={index}
-            // onPress={async () => {
-            //   console.log("Navigating to Ketersediaan with ID:", item.id); // Debug log
-            //   await saveCategoryId(item.id);
-            //   navigation.navigate("Ketersediaan");
-            // }}
-            // switchValue="kategori"
-            harga={item.total_harga}
-            kode={item.code}
-            nama={item.name}
-          />
+          <>
+            <Card
+              key={index}
+              harga={item.total_harga}
+              kode={item.code}
+              nama={item.name}
+            />
+          </>
         ))
       )}
     </ScrollView>
@@ -65,7 +61,6 @@ const SecondRoute = () => {
   return (
     <ScrollView style={{ flex: 1 }}>
       {/* <Text onPress={signOut}>Sign Out</Text> */}
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
       <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
       <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
       <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
