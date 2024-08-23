@@ -1,16 +1,14 @@
+import { useSession } from "@/app/auth/ctx";
 import Card from "@/components/Card";
-import * as React from "react";
 import { API_HOST } from "@/config/Api";
+import axios from "axios";
+import * as React from "react";
 import {
   ActivityIndicator,
   ScrollView,
-  Text,
-  View,
   useWindowDimensions,
 } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
-import { useSession } from "@/app/auth/ctx";
-import axios from "axios";
+import { SceneMap, TabView } from "react-native-tab-view";
 const FirstRoute = () => {
   const { signOut } = useSession();
   const [data, setData] = React.useState([]);
@@ -43,14 +41,12 @@ const FirstRoute = () => {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         data.map((item, index) => (
-          <>
-            <Card
-              key={index}
-              harga={item.total_harga}
-              kode={item.code}
-              nama={item.name}
-            />
-          </>
+          <Card
+            key={item.id}
+            harga={item.total_harga}
+            kode={item.code}
+            nama={item.name}
+          />
         ))
       )}
     </ScrollView>

@@ -22,9 +22,7 @@ const Number = ({ number, type, style }) => {
       thousandSeparator="."
       displayType="text"
       prefix="Rp "
-      renderText={(value) => (
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>{value}</Text>
-      )}
+      renderText={(value) => <Text style={style}>{value}</Text>}
       decimalSeparator=","
     />
   );
