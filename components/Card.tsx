@@ -2,15 +2,12 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Number from "./Number";
 import { useNavigation } from "expo-router";
 
-export default function Card({ kode, nama, harga, quantity }) {
+export default function Card({ kode, nama, harga, quantity, onPress }) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.containerCardHeader}
-      onPress={() => navigation.navigate("OrderDetail")}
-    >
+    <TouchableOpacity style={styles.containerCardHeader} onPress={onPress}>
       <View>
-        <Text style={styles.textCardHeader}>{kode}</Text>
+        <Text style={styles.textCardHeader}>#{kode}</Text>
       </View>
       <View style={styles.containerTextDescription}>
         <View style={styles.containerQuantityTitle}>

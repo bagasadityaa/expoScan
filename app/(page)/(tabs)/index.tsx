@@ -1,7 +1,9 @@
 import { useSession } from "@/app/auth/ctx";
 import Card from "@/components/Card";
 import { API_HOST } from "@/config/Api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useNavigation } from "expo-router";
 import * as React from "react";
 import {
   ActivityIndicator,
@@ -14,18 +16,13 @@ const FirstRoute = () => {
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
-  const [daiti, setDaiti] = React.useState(["apple", "jeruk"]);
-  const diti = "ini data";
-
-  console.log(diti);
-  console.log(daiti);
-  console.log("dataaa", data);
+  // console.log("dataaa", data);
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${API_HOST.url}dashboard/order`);
         setData(response.data.data.data);
-        console.log("success food", response);
+        // console.log("success food", response);
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
@@ -34,6 +31,15 @@ const FirstRoute = () => {
     };
     fetchData();
   }, []);
+  const navigation = useNavigation();
+  const saveOrderId = async (id) => {
+    try {
+      await AsyncStorage.setItem("orderId", id.toString());
+      console.log("order tersimpan:", id);
+    } catch (e) {
+      console.error("Failed to save order:", e);
+    }
+  };
   return (
     <ScrollView style={{ flex: 1 }}>
       {/* <Text onPress={signOut}>Sign Out</Text> */}
@@ -44,7 +50,12 @@ const FirstRoute = () => {
           <Card
             key={item.id}
             harga={item.total_harga}
-            kode={item.code}
+            onPress={async () => {
+              console.log("Id order sudah disimpan:", item.id);
+              await saveOrderId(item.id);
+              navigation.navigate("OrderDetail");
+            }}
+            kode={item.id}
             nama={item.name}
           />
         ))
