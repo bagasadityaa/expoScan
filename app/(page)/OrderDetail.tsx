@@ -2,6 +2,7 @@ import Number from "@/components/Number";
 import { API_HOST } from "@/config/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -14,6 +15,7 @@ import {
 export default function OrderDetail() {
   const [orderId, setOrderId] = useState();
   const [data, setData] = useState([]);
+  const [id, setId] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getOrderId = async () => {
@@ -21,7 +23,7 @@ export default function OrderDetail() {
         const id = await AsyncStorage.getItem("orderId");
         if (id !== null) {
           setOrderId(id);
-          console.log("orderId disimpan", id);
+          // console.log("orderId disimpan", id);
         }
       } catch (e) {
         console.error("failed", e);
@@ -29,19 +31,21 @@ export default function OrderDetail() {
     };
     getOrderId();
   }, []);
-  console.log("orderId", orderId);
-  console.log(data);
+  // console.log("orderId", orderId);
+  // console.log(data);
   useEffect(() => {
     if (!orderId) return;
 
     const fetchData = async () => {
       try {
         const url = `${API_HOST.url}dashboard/order/${orderId}`;
-        console.log("response url:", url);
+        // console.log("response url:", url);
         const response = await axios.get(url);
         const orderData = response.data.data.order_item;
+        const idOrder = response.data.data;
         setData(orderData);
-        console.log(orderData);
+        setId(idOrder);
+        // console.log(orderData);
       } catch (error) {
         console.error("error", error);
       } finally {
@@ -50,6 +54,8 @@ export default function OrderDetail() {
     };
     fetchData();
   }, [orderId]);
+  const navigation = useNavigation();
+  console.log("ini id", id);
   return (
     <View style={{ height: "100%", width: "100%", marginTop: 5 }}>
       {/* header       */}
@@ -68,9 +74,10 @@ export default function OrderDetail() {
             fontWeight: "bold",
           }}
         >
-          #400
+          #{id.id}
         </Text>
       </View>
+
       <View
         style={{
           marginHorizontal: "3%",
@@ -122,6 +129,47 @@ export default function OrderDetail() {
           ))
         )}
       </View>
+      <View
+        style={{
+          marginHorizontal: "3%",
+          borderWidth: 1,
+          marginTop: 10,
+          padding: 3,
+          borderRadius: 15,
+        }}
+      >
+        <Text style={{ fontSize: 20 }}>Status Pesanan</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>
+            Metode Pembayaran:
+          </Text>
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>
+            {id.metode_pembayaran}
+          </Text>
+        </View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginHorizontal: 5,
+          }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>
+            Status Transaksi
+          </Text>
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>
+            {id.status_pesanan}
+          </Text>
+        </View>
+      </View>
       <TouchableOpacity
         style={{
           marginHorizontal: "3%",
@@ -129,6 +177,7 @@ export default function OrderDetail() {
           borderRadius: 50,
           backgroundColor: "brown",
         }}
+        onPress={() => navigation.goBack()}
       >
         <Text
           style={{

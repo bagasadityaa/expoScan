@@ -20,7 +20,9 @@ const FirstRoute = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_HOST.url}dashboard/order`);
+        const response = await axios.get(
+          `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`
+        );
         setData(response.data.data.data);
         // console.log("success food", response);
       } catch (error) {
@@ -55,6 +57,7 @@ const FirstRoute = () => {
               await saveOrderId(item.id);
               navigation.navigate("OrderDetail");
             }}
+            status_pesanan={item.status_pesanan}
             kode={item.id}
             nama={item.name}
           />
@@ -65,21 +68,56 @@ const FirstRoute = () => {
 };
 const SecondRoute = () => {
   const { signOut } = useSession();
+  const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  // console.log("dataaa", data);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_HOST.url}dashboard/order?status_pesanan=selesai`
+        );
+        setData(response.data.data.data);
+        // console.log("success food", response);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+  const navigation = useNavigation();
+  const saveOrderId = async (id) => {
+    try {
+      await AsyncStorage.setItem("orderId", id.toString());
+      console.log("order tersimpan:", id);
+    } catch (e) {
+      console.error("Failed to save order:", e);
+    }
+  };
   return (
     <ScrollView style={{ flex: 1 }}>
       {/* <Text onPress={signOut}>Sign Out</Text> */}
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
-      <Card kode="#400" nama="Ayam Bakar" quantity="x2" harga="Rp 15000" />
+
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        data.map((item, index) => (
+          <Card
+            key={item.id}
+            harga={item.total_harga}
+            onPress={async () => {
+              console.log("Id order sudah disimpan:", item.id);
+              await saveOrderId(item.id);
+              navigation.navigate("OrderDetail");
+            }}
+            kode={item.id}
+            nama={item.name}
+          />
+        ))
+      )}
     </ScrollView>
   );
 };
