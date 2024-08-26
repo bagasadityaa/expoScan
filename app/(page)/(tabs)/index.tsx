@@ -3,7 +3,7 @@ import Card from "@/components/Card";
 import { API_HOST } from "@/config/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { useNavigation } from "expo-router";
+import { useFocusEffect, useNavigation } from "expo-router";
 import * as React from "react";
 import {
   ActivityIndicator,
@@ -11,7 +11,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
-const FirstRoute = () => {
+const FirstRoute = ({ route }) => {
   const { signOut } = useSession();
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -19,20 +19,67 @@ const FirstRoute = () => {
   // console.log("dataaa", data);
   React.useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`
-        );
-        setData(response.data.data.data);
-        // console.log("success food", response);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      } finally {
-        setLoading(false);
-      }
+      setLoading(true);
+      axios
+        .all([
+          axios.get(
+            `${API_HOST.url}dashboard/order?status_pesanan=menunggu_konfirmasi`
+          ),
+          axios.get(
+            `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`
+          ),
+        ])
+        .then(
+          axios.spread((res1, res2, res3) => {
+            const menungguKonfirmasi = res1.data.data.data;
+            const sedangDiproses = res2.data.data.data;
+            const sortedData = [...menungguKonfirmasi, ...sedangDiproses];
+            setData(sortedData);
+          })
+        )
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     };
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    axios
+      .all([
+        axios.get(
+          `${API_HOST.url}dashboard/order?status_pesanan=menunggu_konfirmasi`
+        ),
+        axios.get(
+          `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`
+        ),
+      ])
+      .then(
+        axios.spread((res1, res2, res3) => {
+          const menungguKonfirmasi = res1.data.data.data;
+          const sedangDiproses = res2.data.data.data;
+          const sortedData = [...menungguKonfirmasi, ...sedangDiproses];
+          setData(sortedData);
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
   const navigation = useNavigation();
   const saveOrderId = async (id) => {
     try {
@@ -74,17 +121,25 @@ const SecondRoute = () => {
   // console.log("dataaa", data);
   React.useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${API_HOST.url}dashboard/order?status_pesanan=selesai`
-        );
-        setData(response.data.data.data);
-        // console.log("success food", response);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      } finally {
-        setLoading(false);
-      }
+      axios
+        .all([
+          axios.get(`${API_HOST.url}dashboard/order?status_pesanan=batal`),
+          axios.get(`${API_HOST.url}dashboard/order?status_pesanan=selesai`),
+        ])
+        .then(
+          axios.spread((res1, res2, res3) => {
+            const menungguKonfirmasi = res1.data.data.data;
+            const sedangDiproses = res2.data.data.data;
+            const sortedData = [...menungguKonfirmasi, ...sedangDiproses];
+            setData(sortedData);
+          })
+        )
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     };
     fetchData();
   }, []);
@@ -108,6 +163,7 @@ const SecondRoute = () => {
           <Card
             key={item.id}
             harga={item.total_harga}
+            status_pesanan={item.status_pesanan}
             onPress={async () => {
               console.log("Id order sudah disimpan:", item.id);
               await saveOrderId(item.id);

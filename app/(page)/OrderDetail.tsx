@@ -54,8 +54,31 @@ export default function OrderDetail() {
     };
     fetchData();
   }, [orderId]);
+
+  const buttonSelesai = async () => {
+    setLoading(true);
+
+    try {
+      const data = { status_pesanan: "selesai" };
+
+      console.log("Data yang dikirim:", data); // Log data yang dikirim
+
+      const response = await axios.post(
+        `${API_HOST.url}dashboard/orderAllOne/${orderId}`,
+        data
+      );
+      console.log("berhasil update data", response);
+      navigation.navigate("index", { refresh: true });
+    } catch (error) {
+      console.error("error", error); // Perbaikan log error
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const navigation = useNavigation();
   console.log("ini id", id);
+  console.log("orderId", orderId);
   return (
     <View style={{ height: "100%", width: "100%", marginTop: 5 }}>
       {/* header       */}
@@ -177,7 +200,7 @@ export default function OrderDetail() {
           borderRadius: 50,
           backgroundColor: "brown",
         }}
-        onPress={() => navigation.goBack()}
+        onPress={buttonSelesai}
       >
         <Text
           style={{

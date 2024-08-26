@@ -22,17 +22,31 @@ export default function Card({
         </View>
 
         <Number number={harga} />
-        <Text
-          style={{
-            padding: 5,
-            backgroundColor: "green",
-            borderRadius: 5,
-            color: "white",
-            fontWeight: "500",
-          }}
-        >
-          {status_pesanan}
-        </Text>
+        {status_pesanan === "batal" ? (
+          <Text
+            style={{
+              padding: 5,
+              backgroundColor: "red",
+              borderRadius: 5,
+              color: "white",
+              fontWeight: "500",
+            }}
+          >
+            {status_pesanan}
+          </Text>
+        ) : (
+          <Text
+            style={{
+              padding: 5,
+              backgroundColor: "green",
+              borderRadius: 5,
+              color: "white",
+              fontWeight: "500",
+            }}
+          >
+            {status_pesanan}
+          </Text>
+        )}
       </View>
 
       <View>{/* <Button>Haiii</Button> */}</View>
