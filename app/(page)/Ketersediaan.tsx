@@ -32,7 +32,6 @@ export default function Ketersediaan({ navigation }) {
 
   useEffect(() => {
     if (!categoryId) return; // Pastikan categoryId ada sebelum memanggil fetchData
-
     const fetchData = async () => {
       try {
         const url = `${API_HOST.url}categoryfood/${categoryId}`;
@@ -66,7 +65,12 @@ export default function Ketersediaan({ navigation }) {
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           data.map((item, index) => (
-            <CardFood key={index} nama={item.nama_food} />
+            <CardFood
+              key={index}
+              nama={item.nama_food}
+              status={item.status_food}
+              id={item.id}
+            />
           ))
         )}
       </ScrollView>

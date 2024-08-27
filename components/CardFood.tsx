@@ -1,4 +1,6 @@
+import { API_HOST } from "@/config/Api";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import axios from "axios";
 import { useNavigation } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
@@ -12,12 +14,25 @@ export default function CardFood({
   navigate,
   id,
   onPress,
+  status,
 }) {
   const navigation = useNavigation();
-  const [isEnabled, setIsEnabled] = useState(false);
-
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
+  const Habis = "Habis";
+  const Tersedia = "Tersedia";
+  const [useNilai, setUseNilai] = useState(status === Tersedia);
+  const handleToggle = () => {
+    const newStatus = useNilai ? Habis : Tersedia;
+    setUseNilai(!useNilai);
+    const data = { status_food: newStatus };
+    axios
+      .post(`${API_HOST.url}dashboard/food/${id}`, data, {})
+      .then((res) => {
+        console.log("berhasil update ketersedian", res);
+      })
+      .catch((err) => {
+        console.log("Gagal ", err);
+      });
+  };
   return (
     <View style={{ paddingHorizontal: 5, width: "100%" }}>
       {switchValue === "kategori" ? (
@@ -34,7 +49,7 @@ export default function CardFood({
           >
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>{nama}</Text>
 
-            <FontAwesome size={28} name="angle-right" color={color} />
+            <FontAwesome size={28} name="angle-right" />
           </View>
         </TouchableOpacity>
       ) : (
@@ -52,8 +67,8 @@ export default function CardFood({
 
           <Switch
             trackColor={{ false: "#767577", true: "green" }}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+            onValueChange={handleToggle}
+            value={useNilai}
           />
         </View>
       )}
