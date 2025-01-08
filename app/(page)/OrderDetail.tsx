@@ -39,19 +39,25 @@ export default function OrderDetail() {
     const fetchData = async () => {
       try {
         const url = `${API_HOST.url}dashboard/order/${orderId}`;
-        // console.log("response url:", url);
-        const response = await axios.get(url);
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer a5sd5qw85A5a5wA55W`,
+          },
+        });
+
         const orderData = response.data.data.order_item;
         const idOrder = response.data.data;
+
         setData(orderData);
         setId(idOrder);
-        // console.log(orderData);
       } catch (error) {
-        console.error("error", error);
+        console.error("Error fetching order data:", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [orderId]);
 
@@ -62,15 +68,26 @@ export default function OrderDetail() {
       const data = { status_pesanan: "selesai" };
 
       console.log("Data yang dikirim:", data); // Log data yang dikirim
+      const url = `${API_HOST.url}dashboard/orderAllOne/${orderId}`;
 
       const response = await axios.post(
-        `${API_HOST.url}dashboard/orderAllOne/${orderId}`,
-        data
+        url,
+        data, // Data dikirim sebagai body request
+        {
+          headers: {
+            Authorization: `Bearer a5sd5qw85A5a5wA55W`,
+            "Content-Type": "application/json", // Pastikan tipe konten sesuai
+          },
+        }
       );
-      console.log("berhasil update data", response);
+
+      console.log("Berhasil update data:", response.data);
       navigation.navigate("index", { refresh: true });
     } catch (error) {
-      console.error("error", error); // Perbaikan log error
+      console.error(
+        "Terjadi kesalahan saat mengupdate data:",
+        error.response?.data || error.message
+      );
     } finally {
       setLoading(false);
     }
@@ -117,37 +134,55 @@ export default function OrderDetail() {
             <View
               key={index}
               style={{
-                display: "flex",
-                flexDirection: "row",
                 paddingHorizontal: 10,
               }}
             >
               <View
+                key={index}
                 style={{
-                  width: "100%",
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  paddingHorizontal: 10,
                 }}
               >
                 <View
                   style={{
+                    width: "100%",
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text
-                    style={{ marginRight: 7, fontSize: 20, fontWeight: "600" }}
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    x{item.quantity}
-                  </Text>
-                  <Text style={{ fontSize: 20, fontWeight: "600" }}>
-                    {item.nama_food}
-                  </Text>
+                    <Text
+                      style={{
+                        marginRight: 7,
+                        fontSize: 20,
+                        fontWeight: "600",
+                      }}
+                    >
+                      x{item.quantity}
+                    </Text>
+                    <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                      {item.nama_food}
+                    </Text>
+                  </View>
+                  <Number number={item.harga_food} style={{ fontSize: 20 }} />
                 </View>
-                <Number number={item.harga_food} style={{ fontSize: 20 }} />
               </View>
+              {item.note === null ? (
+                <></>
+              ) : (
+                <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                  {item.note}
+                </Text>
+              )}
             </View>
           ))
         )}

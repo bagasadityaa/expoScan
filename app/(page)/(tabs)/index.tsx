@@ -15,6 +15,7 @@ const FirstRoute = ({ route }) => {
   const { signOut } = useSession();
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const token = "a5sd5qw85A5a5wA55W";
 
   // console.log("dataaa", data);
   React.useEffect(() => {
@@ -23,10 +24,20 @@ const FirstRoute = ({ route }) => {
       axios
         .all([
           axios.get(
-            `${API_HOST.url}dashboard/order?status_pesanan=menunggu_konfirmasi`
+            `${API_HOST.url}dashboard/order?status_pesanan=menunggu_konfirmasi`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
           ),
           axios.get(
-            `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`
+            `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
           ),
         ])
         .then(
@@ -52,10 +63,20 @@ const FirstRoute = ({ route }) => {
     axios
       .all([
         axios.get(
-          `${API_HOST.url}dashboard/order?status_pesanan=menunggu_konfirmasi`
+          `${API_HOST.url}dashboard/order?status_pesanan=menunggu_konfirmasi`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         ),
         axios.get(
-          `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`
+          `${API_HOST.url}dashboard/order?status_pesanan=sedang_diproses`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         ),
       ])
       .then(
@@ -117,14 +138,22 @@ const SecondRoute = () => {
   const { signOut } = useSession();
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-
+  const token = "a5sd5qw85A5a5wA55W";
   // console.log("dataaa", data);
   React.useEffect(() => {
     const fetchData = async () => {
       axios
         .all([
-          axios.get(`${API_HOST.url}dashboard/order?status_pesanan=batal`),
-          axios.get(`${API_HOST.url}dashboard/order?status_pesanan=selesai`),
+          axios.get(`${API_HOST.url}dashboard/order?status_pesanan=batal`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
+          axios.get(`${API_HOST.url}dashboard/order?status_pesanan=selesai`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
         ])
         .then(
           axios.spread((res1, res2, res3) => {

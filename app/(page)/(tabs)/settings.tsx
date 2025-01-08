@@ -64,24 +64,24 @@ export default function Settings({}) {
       <ScrollView>
         <View
           style={{
-            backgroundColor: "red",
+            // backgroundColor: "red",
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            marginHorizontal: 5,
+            marginHorizontal: 8,
           }}
         >
           <View
             style={{
               justifyContent: "center",
-              backgroundColor: "green",
+              // backgroundColor: "green",
               display: "flex",
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "500" }}>Status Toko</Text>
           </View>
           <Switch
-            style={{ backgroundColor: "yellow" }}
+            // style={{ backgroundColor: "yellow" }}
             value={isEnabled}
             onValueChange={toggleSwitch}
           />
